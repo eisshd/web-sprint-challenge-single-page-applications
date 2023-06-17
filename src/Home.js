@@ -1,46 +1,32 @@
+import {React, useState} from 'react'
+import OrderPizza from "./PizzaForm"
+import { BrowserRouter, Routes, Route, Link, useNavigate  } from 'react-router-dom'
+import data from "./data"
 
 
 export default function Home() {
+    const [Data, SetData] = useState(data)
+    const navigate = useNavigate()
+    
+    const OnButtonClick = (e) => {
+        e.preventDefault()
+        navigate(`/pizza`)
+    }
+
+
     return(
     <div className="home-container">
         <img src="https://thumbs.dreamstime.com/b/laptop-notebook-computer-pizza-icon-sign-vector-illustration-113029243.jpg"/>
         <div className="Pizzaz">
-            <div>
-                <h3>Pizza 1</h3>
-                <p>Pizza 1 description</p>
-                <p>Pizza Price</p>
-                <button> Place Your Order </button>
-            </div>
-            <div>
-                <h3>Pizza 2</h3>
-                <p>Pizza 2 description</p>
-                <p>Pizza Price</p>
-                <button id="order-pizza"> Place Your Order </button>
-            </div>
-            <div>
-                <h3>Pizza 3</h3>
-                <p>Pizza 3 description</p>
-                <p>Pizza Price</p>
-                <button id="order-pizza"> Place Your Order </button>
-            </div>
-            <div>
-                <h3>Pizza 4</h3>
-                <p>Pizza 4 description</p>
-                <p>Pizza Price</p>
-                <button id="order-pizza"> Place Your Order </button>
-            </div>
-            <div>
-                <h3>Pizza 5</h3>
-                <p>Pizza 5 description</p>
-                <p>Pizza Price</p>
-                <button id="order-pizza"> Place Your Order </button>
-            </div>
-            <div>
-                <h3>Pizza 6</h3>
-                <p>Pizza 6 description</p>
-                <p>Pizza Price</p>
-                <button id="order-pizza"> Place Your Order </button>
-            </div>
+            {data.map(data => (
+                <div key={data.id}>
+                    <img src={data.imgsrc}></img>
+                    <h3>{data.Name}</h3>
+                    <button id='order-pizza' onClick={OnButtonClick}>Place Your Order</button>
+                    <p className='price'>{data.price}</p>
+                </div>
+            ))}
+            
         </div>
         
     </div>

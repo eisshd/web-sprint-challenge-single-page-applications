@@ -1,14 +1,14 @@
 body {
   margin: auto;
-  padding: 0;
+  padding: auto;
 	border: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: rgb(29, 29, 218);
   text-align: center;
+  background-color: rgb(208, 215, 221);
 }
 
 code {
@@ -16,13 +16,40 @@ code {
     monospace;
 }
 
+.nav_links {
+  width: 30%;
+  margin-right: 200px;
+  margin-top: 30px
+}
+
 .nav_links a{
+    margin: 5px;
+    padding: 10px 0px 10px 0;
+    border: solid black;
     text-decoration: none;
+    font-size: 1.5rem;
     
 }
 
-img {
-  
+.header{
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.header h1 {
+  text-align: left;
+  margin-left: 200px;
+  margin-bottom: 0;
+  padding: 0;
+}
+
+.header p {
+  text-align: left;
+  margin-left: 200px;
+  margin-top: 0;
+  font-style: italic;
 }
 
 .Pizzaz{
@@ -33,6 +60,55 @@ img {
 }
 
 .Pizzaz div {
+    margin: 5px;
     width: 30%;
+    border: black solid;
 
+}
+
+.Pizzaz img {
+    width: 30%;
+    height: 100px;
+}
+
+.op-img {
+    width: 50%;
+    height: 300px;
+    border: solid black;
+}
+
+.pizzaForm {
+  border: solid black;
+  margin: 0px 300px 0px 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.pizzaForm label {
+  margin: auto;
+  padding: auto;
+  width: 80%;
+}
+
+.pizzaForm h2, p{
+  text-align: left;
+  margin-left: 30px;
+  margin-top: 0;
+}
+
+.select-sauce {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
+}
+
+
+
+.select-toppings {
+  display: flex;
+  flex-wrap: wrap;
+  text-align: left;
+  width: 50%;
+  margin: 0;
+  padding: 0;
 }
