@@ -5,7 +5,7 @@ import axios from 'axios';
 
 export default function OrderPizza (props) {
     
-    const {form, setForm} = useState({
+    const [form, setForm] = useState({
         select: '',
         size: '', 
         sauce: '', 
@@ -18,7 +18,7 @@ export default function OrderPizza (props) {
         select: '',
         size: '', 
         sauce: '', 
-        toppings: '', 
+        toppings: '',
         instructions: '',
         name: ''
       }
@@ -27,6 +27,7 @@ export default function OrderPizza (props) {
     
     const [formValues, setFormValues] = useState(form)
     const [formErrors, setFormErrors] = useState(initialErrorValues)
+    const [initialForm, setinitialForm] = useState([])
 
 
 
@@ -38,32 +39,15 @@ export default function OrderPizza (props) {
         errors,
       } = props
 
-
-    // const {
-    //     select: '',
-    //     sauce: '',
-    //     toppings: false,
-    //     instructions: '',
-    //     name: ''
-    //   } = props.values
+    
 
     // Onchange event
     const onChange = evt => {
-        const { name, value, checked, type } = evt.target
-        const valueToUse = type === 'checkbox' ? checked : value
-        validate(name, valueToUse)
+        const { name, value, checked, type } = evt.target;
+        const valueToUse = type === 'checkbox' ? checked : value;
+        validate(name, valueToUse);
         setForm({...form, [name]: valueToUse})
       }
-
-    // onSubmit event
-    const Submit = e => {
-        e.preventDefault();
-        axios.post(`https://reqres.in/api/orders`, formValues)
-        .then(res => {
-            setFormValues([res.data, ...form])
-        })
-        .catch(err => console.log(err))
-      };
 
       const validate = (name, value) => {
         yup.reach(formSchema, name)
@@ -71,21 +55,38 @@ export default function OrderPizza (props) {
             .then(() => setFormErrors({ ...formErrors, [name]: '' }))
             .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0] }))
         }
+
+    // onSubmit event
+    const Submit = e => {
+        e.preventDefault();
+        axios.post(`https://reqres.in/api/orders`, form)
+        .then(res => {
+            setinitialForm([res.data, ...initialForm])
+            // console.log(res.data)
+        })
+        .catch(err => console.log(err))
+      };
+
+
     
     return( 
     <div className='form-container'>
         <form id='pizza-form' onSubmit={Submit}>
             <div>
+                <input type='text' name='name' id='name-input' minLength="2" placeholder='Enter a Name' onChange={onChange}></input>
+                <p>{formErrors.name}</p>
+            </div>
+            <div>
                 <h2> Choice of Size </h2>
                 <p>Required</p>
             </div>
-            <div id='size-dropdown'>
+            <div>
                 <label>
-                <select onChange={onChange} /*value={form.select}*/ name='select'>
-                    <option value="">Select</option>
-                    <option value="1">'12""'</option>
-                    <option value="2">'14""'</option>
-                </select>
+                    <select onChange={onChange} value={form.select} name='select' id='size-dropdown'>
+                        <option value="">Select</option>
+                        <option value="1">12"</option>
+                        <option value="2">14"</option>
+                    </select>
                 </label>
             </div>
             <div>
@@ -98,7 +99,7 @@ export default function OrderPizza (props) {
                             type='radio'
                             name='sauce'
                             value='Original Red'
-                            // checked={false}
+                            checked={form.sauce === 'Original Red'}
                             onChange={onChange}
                         />
                     </label>
@@ -107,7 +108,7 @@ export default function OrderPizza (props) {
                             type='radio'
                             name='sauce'
                             value='Garlic Ranch'
-                            // checked={false}
+                            checked={form.sauce === 'Garlic Ranch'}
                             onChange={onChange}
                         />
                     </label>
@@ -116,7 +117,7 @@ export default function OrderPizza (props) {
                             type='radio'
                             name='sauce'
                             value='BBQ Sauce'
-                            // checked={false}
+                            checked={form.sauce ==='BBQ Sauce'}
                             onChange={onChange}
                         />
                     </label>
@@ -125,7 +126,7 @@ export default function OrderPizza (props) {
                             type='radio'
                             name='sauce'
                             value='Spinach Alfredo'
-                            // checked= {false}
+                            checked={form.sauce === 'Spinach Alfredo'}
                             onChange={onChange}
                         />
                     </label>
@@ -139,32 +140,36 @@ export default function OrderPizza (props) {
                         <input
                             type='checkbox'
                             name='Pepperoni'
-                            // checked={form.toppings}
+                            checked={form.Pepperoni}
                             onChange={onChange}
+                            value={form.toppings}
                         />
                     </label>
                     <label> Sausage
                         <input
                             type='checkbox'
                             name='Sausage'
-                            // checked={form.toppings}
+                            checked={form.Sausage}
                             onChange={onChange}
+                            value={form.toppings}
                         />
                     </label>
                     <label> Canadian Bacon
                         <input
                             type='checkbox'
-                            name='Canadian Bacon'
-                            // checked={form.toppings}
+                            name='Canadian_Bacon'
+                            checked={form.Canadian_Bacon}
                             onChange={onChange}
+                            value={form.toppings}
                         />
                     </label>
                     <label> Spicy Italian Sausage
                         <input
                             type='checkbox'
-                            name='Spicy Italian Sausage'
-                            // checked={form.toppings}
+                            name='Spicy_Italian_Sausage'
+                            checked={form.Spicy_Italian_Sausage}
                             onChange={onChange}
+                            value={form.toppings}
                         />
                     </label>
             </div>
@@ -172,21 +177,19 @@ export default function OrderPizza (props) {
                 <h2> Special Instructions </h2>
             </div>
             <div>
-                <label>
+                <label id='special-text'>
                 <input
                     type='text'
-                    placeholder='More information?'
+                    placeholder='More Information'
                     maxLength="150"
                     name='instructions'
+                    value='Here are the special instructions'
+                    onChange={onChange}
                 />
             </label>
             </div>
-            <div>
-                <input type='text' name='name' id='name-input' minLength="2" placeholder='Enter a Name'></input>
-                <p>{formErrors.name}</p>
-            </div>
             
-            <input type='submit'/>
+            <input type='submit' id='order-button'/>
         </form>
     </div>)
 }
