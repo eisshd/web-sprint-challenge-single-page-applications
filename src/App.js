@@ -5,7 +5,6 @@ import OrderPizza from "./PizzaForm";
 
 const App = () => {
   return (
-    <BrowserRouter>
       <div>
         <div className="header">
           <div>
@@ -22,11 +21,9 @@ const App = () => {
 
         <Routes>
             <Route path='/'element={<Home/>}/>
-            <Route path="" element={<Home/>}/>
             <Route path="/pizza" element={<OrderPizza />}/>
         </Routes> 
       </div>
-    </BrowserRouter>
     
       
   );

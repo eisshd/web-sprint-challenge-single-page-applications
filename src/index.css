@@ -77,20 +77,20 @@ code {
     border: solid black;
 }
 
-.pizzaForm {
+.form-container {
   border: solid black;
   margin: 0px 300px 0px 300px;
   display: flex;
   flex-direction: column;
 }
 
-.pizzaForm label {
+.form-container label {
   margin: auto;
   padding: auto;
   width: 80%;
 }
 
-.pizzaForm h2, p{
+.form-container h2, p{
   text-align: left;
   margin-left: 30px;
   margin-top: 0;
